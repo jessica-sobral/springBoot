@@ -34,7 +34,7 @@ class AnimeServiceTest {
     @BeforeEach
     void setUp(){
         PageImpl<Anime> animePage = new PageImpl<>(List.of(AnimeCreator.createValidAnime()));
-        
+
         BDDMockito.when(animeRepositoryMock.findAll(ArgumentMatchers.any(PageRequest.class)))
                 .thenReturn(animePage);
 
