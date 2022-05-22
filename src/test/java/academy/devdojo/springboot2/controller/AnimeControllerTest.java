@@ -33,6 +33,9 @@ class AnimeControllerTest {
     void setUp() {
         PageImpl<Anime> animePage = new PageImpl<>(List.of(AnimeCreator.createValidAnime()));
 
+        BDDMockito.when(animeServiceMock.listAll(ArgumentMatchers.any()))
+                .thenReturn(animePage);
+
         BDDMockito.when(animeServiceMock.listAllNonPageble())
                 .thenReturn(List.of(AnimeCreator.createValidAnime()));
 
@@ -145,7 +148,8 @@ class AnimeControllerTest {
     @Test
     @DisplayName("delete removes anime when successful")
     void delete_RemovesAnime_WhenSuccessful() {
-        Assertions.assertThatCode(() -> animeController.delete(1));
+        Assertions.assertThatCode(() -> animeController.delete(1))
+                .doesNotThrowAnyException();
 
         ResponseEntity<Void> entity = animeController.delete(1);
 
